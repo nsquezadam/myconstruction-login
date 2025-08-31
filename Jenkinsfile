@@ -30,14 +30,14 @@ pipeline {
     stage('Publish to Artifactory') {
       steps {
         script {
-
-          def server = Artifactory.server('local-jfrog')
-
+          // Crea el server en línea usando URL + credencial (no depende del ID global)
+          def server = Artifactory.newServer url: 'http://localhost:8082/artifactory',
+                                             credentialsId: 'jfrog-admin'
+          server.connection.timeout = 300  // opcional
 
           def buildInfo = Artifactory.newBuildInfo()
           buildInfo.env.capture = true
 
-          // Sube el jar al repo de releases
           def uploadSpec = """{
             "files": [{
               "pattern": "target/myconstruction-jar-with-dependencies.jar",
@@ -51,5 +51,6 @@ pipeline {
         }
       }
     }
+
   }
 }
