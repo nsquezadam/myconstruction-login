@@ -29,7 +29,7 @@ pipeline {
       steps {
         script {
 
-          def server = Artifactory.newServer url: 'http://localhost:8082/artifactory',
+          def server = Artifactory.newServer url: 'http://localhost:8082',
                                              credentialsId: 'admin'
           server.connection.timeout = 300  // opcional
 
