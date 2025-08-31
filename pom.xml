@@ -1,12 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>org.example</groupId>
-  <artifactId>mycontruction</artifactId>
+  <artifactId>myconstruction</artifactId> <!-- corregido -->
+  <version>1.0-SNAPSHOT</version>         <!-- snapshot -->
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>mycontruction Maven Webapp</name>
+  <name>myconstruction Maven Webapp</name>
   <url>http://maven.apache.org</url>
+
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
@@ -14,6 +16,7 @@
     <jetty.version>11.0.24</jetty.version>
     <jakarta.servlet.version>5.0.0</jakarta.servlet.version>
   </properties>
+
   <dependencies>
     <!-- Servlets -->
     <dependency>
@@ -23,7 +26,7 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Jetty  -->
+    <!-- Jetty -->
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-server</artifactId>
@@ -42,7 +45,7 @@
       <version>9.0.0</version>
     </dependency>
 
-    <!-- JUnit 5 -->
+    <!-- JUnit 5 (por ahora se salta en tu pipeline) -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -50,10 +53,11 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
   <build>
     <finalName>myconstruction</finalName>
     <plugins>
-      <!-- Plugin de compilación -->
+      <!-- Compilación -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -63,7 +67,7 @@
         </configuration>
       </plugin>
 
-      <!-- Plugin para empaquetar en un jar ejecutable -->
+      <!-- Fat JAR -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -90,11 +94,12 @@
       </plugin>
     </plugins>
   </build>
+
+  <!-- SNAPSHOT → repo de snapshots -->
   <distributionManagement>
-    <repository>
-      <id>jfrog-releases</id>
-      <url>http://localhost:8082/artifactory/libs-release-local</url>
-    </repository>
+    <snapshotRepository>
+      <id>jfrog-snapshots</id>
+      <url>http://localhost:8082/artifactory/libs-snapshot-local</url>
+    </snapshotRepository>
   </distributionManagement>
 </project>
-
