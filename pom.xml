@@ -3,8 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
-  <artifactId>myconstruction</artifactId> <!-- corregido -->
-  <version>1.0-SNAPSHOT</version>         <!-- snapshot -->
+  <artifactId>myconstruction</artifactId>
+  <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>myconstruction Maven Webapp</name>
   <url>http://maven.apache.org</url>
