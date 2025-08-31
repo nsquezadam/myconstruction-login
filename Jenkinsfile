@@ -14,14 +14,12 @@ pipeline {
       }
     }
 
-    stage('Build (Maven)') {
-      steps {
-
-        bat 'mvn -B -U -DskipTests clean package'
-      }
-    }
-
-    stage('Archive artifact') {
+   stage('Build & Deploy (Maven)') {
+     steps {
+       bat 'mvn -B -U -DskipTests clean deploy'
+     }
+   }
+   stage('Archive artifact') {
       steps {
          archiveArtifacts artifacts: 'target/myconstruction-jar-with-dependencies.jar', fingerprint: true
       }
@@ -30,9 +28,9 @@ pipeline {
     stage('Publish to Artifactory') {
       steps {
         script {
-          // Crea el server en línea usando URL + credencial (no depende del ID global)
+
           def server = Artifactory.newServer url: 'http://localhost:8082/artifactory',
-                                             credentialsId: 'jfrog-admin'
+                                             credentialsId: 'admin'
           server.connection.timeout = 300  // opcional
 
           def buildInfo = Artifactory.newBuildInfo()
