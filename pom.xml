@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -15,8 +16,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jetty.version>11.0.24</jetty.version>
     <jakarta.servlet.version>5.0.0</jakarta.servlet.version>
-    <artifactory.username>${env.JFROG_USER}</artifactory.username>
-    <artifactory.password>${env.JFROG_PASS}</artifactory.password>
   </properties>
 
   <dependencies>
@@ -47,7 +46,7 @@
       <version>9.0.0</version>
     </dependency>
 
-    <!-- JUnit 5 (por ahora se salta en tu pipeline) -->
+    <!-- JUnit 5 -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -59,7 +58,7 @@
   <build>
     <finalName>myconstruction</finalName>
     <plugins>
-
+      <!-- Compilador -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -69,7 +68,7 @@
         </configuration>
       </plugin>
 
-
+      <!-- JAR con dependencias -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -94,45 +93,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.jfrog.buildinfo</groupId>
-        <artifactId>artifactory-maven-plugin</artifactId>
-        <version>3.1.1</version>
-        <executions>
-          <execution>
-            <id>artifactory-deploy</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>deploy</goal>
-            </goals>
-            <configuration>
-              <publisher>
-                <contextUrl>https://trialgzc17e.jfrog.io/artifactory</contextUrl>
-                <repoKey>libs-snapshot-local</repoKey>
-                <username>${env.JFROG_USER}</username>
-                <password>${env.JFROG_PASS}</password>
-                <mavenCompatible>true</mavenCompatible>
-              </publisher>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-
     </plugins>
   </build>
-  <repositories>
-    <repository>
-      <id>jfrog-plugins</id>
-      <url>https://releases.jfrog.io/artifactory/jfrog-plugins</url>
-    </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>jfrog-plugins</id>
-      <url>https://releases.jfrog.io/artifactory/jfrog-plugins</url>
-    </pluginRepository>
-  </pluginRepositories>
-
-  </project>
+</project>
