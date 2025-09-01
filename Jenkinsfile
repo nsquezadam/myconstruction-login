@@ -18,14 +18,10 @@ pipeline {
      steps {
        withCredentials([usernamePassword(credentialsId: 'trial_credencial_token', usernameVariable: 'JFROG_USER', passwordVariable: 'JFROG_PASS')]) {
            bat """
-               mvn -B -U -DskipTests deploy \
-               -s C:/Users/nsque/.m2/settings.xml \
-               -Dusername=%JFROG_USER% \
-               -Dpassword=%JFROG_PASS%
+               dir target
+               mvn -B -U -DskipTests -s C:/Users/nsque/.m2/settings.xml deploy
            """
        }
-
-
      }
    }
    stage('Archive artifact') {
