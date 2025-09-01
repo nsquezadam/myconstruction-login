@@ -59,7 +59,7 @@
   <build>
     <finalName>myconstruction</finalName>
     <plugins>
-      <!-- Compilación -->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -69,7 +69,7 @@
         </configuration>
       </plugin>
 
-      <!-- Fat JAR -->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -109,8 +109,8 @@
               <publisher>
                 <contextUrl>https://trialgzc17e.jfrog.io/artifactory</contextUrl>
                 <repoKey>libs-snapshot-local</repoKey>
-                <username>${artifactory.username}</username>
-                <password>${artifactory.password}</password>
+                <username>${env.JFROG_USER}</username>
+                <password>${env.JFROG_PASS}</password>
                 <mavenCompatible>true</mavenCompatible>
               </publisher>
             </configuration>
@@ -118,7 +118,21 @@
         </executions>
       </plugin>
 
+
     </plugins>
   </build>
+  <repositories>
+    <repository>
+      <id>jfrog-plugins</id>
+      <url>https://releases.jfrog.io/artifactory/jfrog-plugins</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jfrog-plugins</id>
+      <url>https://releases.jfrog.io/artifactory/jfrog-plugins</url>
+    </pluginRepository>
+  </pluginRepositories>
 
   </project>
