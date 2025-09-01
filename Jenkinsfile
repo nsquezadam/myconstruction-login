@@ -16,6 +16,15 @@ pipeline {
 
    stage('Build & Deploy (Maven)') {
      steps {
+       withCredentials([usernamePassword(credentialsId: 'trial_credencial_token', usernameVariable: 'JFROG_USER', passwordVariable: 'JFROG_PASS')]) {
+           bat """
+               mvn -B -U -DskipTests deploy \
+               -s C:/Users/nsque/.m2/settings.xml \
+               -Dusername=%JFROG_USER% \
+               -Dpassword=%JFROG_PASS%
+           """
+       }
+
        bat 'mvn -B -U -DskipTests -s C:\\Windows\\System32\\config\\systemprofile\\.m2\\settings.xml clean deploy'
      }
    }
