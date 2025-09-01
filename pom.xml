@@ -98,12 +98,12 @@
   <!-- SNAPSHOT → repo de snapshots -->
   <distributionManagement>
     <snapshotRepository>
-      <id>jfrog-snapshots</id>
+      <id>libs-snapshot-local</id>
       <url>https://trialgzc17e.jfrog.io/artifactory/api/maven/libs-snapshot-local
       </url>
     </snapshotRepository>
     <repository>
-      <id>jfrog-releases</id>
+      <id>libs-release-local</id>
       <url>https://trialgzc17e.jfrog.io/artifactory/api/maven/libs-release-local</url>
     </repository>
   </distributionManagement>
