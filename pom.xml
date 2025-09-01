@@ -15,6 +15,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jetty.version>11.0.24</jetty.version>
     <jakarta.servlet.version>5.0.0</jakarta.servlet.version>
+    <artifactory.username>${env.JFROG_USER}</artifactory.username>
+    <artifactory.password>${env.JFROG_PASS}</artifactory.password>
   </properties>
 
   <dependencies>
@@ -92,19 +94,31 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.jfrog.buildinfo</groupId>
+        <artifactId>artifactory-maven-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <id>artifactory-deploy</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>deploy</goal>
+            </goals>
+            <configuration>
+              <publisher>
+                <contextUrl>https://trialgzc17e.jfrog.io/artifactory</contextUrl>
+                <repoKey>libs-snapshot-local</repoKey>
+                <username>${artifactory.username}</username>
+                <password>${artifactory.password}</password>
+                <mavenCompatible>true</mavenCompatible>
+              </publisher>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 
-  <!-- SNAPSHOT → repo de snapshots -->
-  <distributionManagement>
-    <snapshotRepository>
-      <id>libs-snapshot-local</id>
-      <url>https://trialgzc17e.jfrog.io/artifactory/api/maven/libs-snapshot-local
-      </url>
-    </snapshotRepository>
-    <repository>
-      <id>libs-release-local</id>
-      <url>https://trialgzc17e.jfrog.io/artifactory/api/maven/libs-release-local</url>
-    </repository>
-  </distributionManagement>
-</project>
+  </project>
