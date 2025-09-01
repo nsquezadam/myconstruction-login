@@ -39,8 +39,8 @@ pipeline {
         script {
 
           def server = Artifactory.newServer(
-            url: 'https://trialgzc17e.jfrog.io/artifactory',
-            credentialsId: 'trial-jfrog'
+            url: 'https://trialgzc17e.jfrog.io',
+            credentialsId: 'trial_credencial_token'
           )
           server.connection.timeout = 300  // opcional
 
