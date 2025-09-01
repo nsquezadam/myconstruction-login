@@ -30,8 +30,8 @@ pipeline {
         script {
 
           def server = Artifactory.newServer(
-            url: 'http://localhost:8082/artifactory',
-            credentialsId: 'local-jfrog'
+            url: 'https://trialgzc17e.jfrog.io/artifactory',
+            credentialsId: 'trial-jfrog'
           )
           server.connection.timeout = 300  // opcional
 
