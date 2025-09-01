@@ -99,7 +99,12 @@
   <distributionManagement>
     <snapshotRepository>
       <id>jfrog-snapshots</id>
-      <url>http://localhost:8082/artifactory/libs-snapshot-local</url>
+      <url>https://trialgzc17e.jfrog.io/artifactory/api/maven/libs-snapshot-local
+      </url>
     </snapshotRepository>
+    <repository>
+      <id>jfrog-releases</id>
+      <url>https://trialgzc17e.jfrog.io/artifactory/api/maven/libs-release-local</url>
+    </repository>
   </distributionManagement>
 </project>

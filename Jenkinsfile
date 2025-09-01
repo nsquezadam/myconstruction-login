@@ -16,7 +16,7 @@ pipeline {
 
    stage('Build & Deploy (Maven)') {
      steps {
-       bat 'mvn -B -U -DskipTests -s "C:\\Windows\\System32\\config\\systemprofile\\.m2\\settings.xml" clean deploy'
+       bat 'mvn -B -U -DskipTests -s C:\\ProgramData\\Jenkins\\.m2\\settings.xml clean deploy'
      }
    }
    stage('Archive artifact') {
