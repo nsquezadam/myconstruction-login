@@ -25,7 +25,7 @@ pipeline {
            """
        }
 
-       bat 'mvn -B -U -DskipTests -s C:\\Windows\\System32\\config\\systemprofile\\.m2\\settings.xml clean deploy'
+
      }
    }
    stage('Archive artifact') {
