@@ -32,7 +32,7 @@ pipeline {
       steps {
         script {
           def server = Artifactory.newServer(
-            url: 'https://trialgzc17e.jfrog.io',
+            url: 'https://trialgzc17e.jfrog.io/artifactory',
             credentialsId: 'trial_credencial_token'
           )
 
