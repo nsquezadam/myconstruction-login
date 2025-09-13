@@ -11,7 +11,7 @@
     <h1>Iniciar sesión</h1>
     <p class="subtitle">Accede con tu usuario de MyConstruction</p>
 
-    <form action="/login" method="post" class="form">
+    <form method="post" action="${pageContext.request.contextPath}/login"class="form">
         <label>
             <span>Usuario</span>
             <input type="text" name="username" required autocomplete="username">

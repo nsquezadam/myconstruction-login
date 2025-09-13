@@ -5,38 +5,26 @@
 
   <groupId>org.example</groupId>
   <artifactId>myconstruction</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  <name>myconstruction Maven Webapp</name>
+  <version>1.0.0</version>
+  <packaging>war</packaging>
+  <name>myconstruction WebApp</name>
   <url>http://maven.apache.org</url>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jetty.version>11.0.24</jetty.version>
     <jakarta.servlet.version>5.0.0</jakarta.servlet.version>
+    <junit.version>5.10.2</junit.version>
   </properties>
 
   <dependencies>
-    <!-- Servlets -->
+    <!-- Servlet API (el contenedor la provee en runtime) -->
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
       <version>${jakarta.servlet.version}</version>
       <scope>provided</scope>
-    </dependency>
-
-    <!-- Jetty -->
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-server</artifactId>
-      <version>${jetty.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-servlet</artifactId>
-      <version>${jetty.version}</version>
     </dependency>
 
     <!-- MySQL -->
@@ -46,11 +34,31 @@
       <version>9.0.0</version>
     </dependency>
 
-    <!-- JUnit 5 -->
+    <!-- Librería extra: BCrypt para hashear contraseñas -->
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>0.4</version>
+    </dependency>
+
+    <!-- Tests -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>5.9.3</version>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>5.12.0</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- (Opcional para smoke tests DAO) -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>2.2.224</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -58,7 +66,6 @@
   <build>
     <finalName>myconstruction</finalName>
     <plugins>
-      <!-- Compilador -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -67,32 +74,40 @@
           <release>17</release>
         </configuration>
       </plugin>
-
-      <!-- JAR con dependencias -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.6.0</version>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.4.0</version>
         <configuration>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-          <archive>
-            <manifest>
-              <mainClass>org.example.App</mainClass>
-            </manifest>
-          </archive>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <warName>myconstruction</warName>
         </configuration>
-        <executions>
-          <execution>
-            <id>make-assembly</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.5</version>
+        <configuration>
+          <useModulePath>false</useModulePath>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>3.1.1</version>
       </plugin>
     </plugins>
   </build>
+
+  <!-- Publicación en Artifactory vía 'mvn deploy' -->
+  <distributionManagement>
+    <snapshotRepository>
+      <id>artifactory</id>
+      <url>https://trialgzc17e.jfrog.io/artifactory/libs-snapshot-local</url>
+    </snapshotRepository>
+    <repository>
+      <id>artifactory</id>
+      <url>https://trialgzc17e.jfrog.io/artifactory/libs-release-local</url>
+    </repository>
+  </distributionManagement>
 </project>
