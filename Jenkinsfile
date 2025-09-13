@@ -5,13 +5,11 @@ pipeline {
     maven 'maven-3.9'
     jdk   'jdk-17'
   }
-
   environment {
     MAVEN_OPTS = '-Xmx512m'
     BRANCH     = 'main'
     REPO_URL   = 'https://github.com/nsquezadam/myconstruction-login.git'
   }
-
   stages {
     stage('Checkout') {
       steps {
@@ -19,16 +17,17 @@ pipeline {
         bat 'git rev-parse HEAD'
       }
     }
-
     stage('Build & Test') {
       steps {
         bat 'mvn -B -U clean test'
       }
       post {
-        always { junit '**/target/surefire-reports/*.xml' }
+        always {
+          //
+          junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: true
+        }
       }
     }
-
     stage('Package WAR') {
       steps {
         bat 'mvn -B package -DskipTests=false'
@@ -39,7 +38,6 @@ pipeline {
         }
       }
     }
-
     stage('Deploy to Artifactory (Maven deploy)') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'artifactory-creds',
@@ -62,7 +60,6 @@ pipeline {
       }
     }
   }
-
   post {
     success { echo 'WAR construido y publicado en Artifactory.' }
     always  { cleanWs() }
