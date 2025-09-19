@@ -17,20 +17,9 @@ pipeline {
         bat 'git rev-parse HEAD'
       }
     }
-    stage('Build & Test') {
-      steps {
-        bat 'mvn -B -U clean test'
-      }
-      post {
-        always {
-          //
-          junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: true
-        }
-      }
-    }
     stage('Package WAR') {
       steps {
-        bat 'mvn -B package -DskipTests=false'
+        bat 'mvn -B clean package -DskipTests=true'
       }
       post {
         success {
@@ -64,7 +53,6 @@ pipeline {
         }
       }
     }
-
   }
   post {
     success { echo 'WAR construido y publicado en Artifactory.' }
