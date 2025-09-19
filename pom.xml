@@ -5,7 +5,7 @@
 
   <groupId>org.example</groupId>
   <artifactId>myconstruction</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>myconstruction WebApp</name>
   <url>http://maven.apache.org</url>
@@ -15,99 +15,47 @@
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jakarta.servlet.version>5.0.0</jakarta.servlet.version>
-    <junit.version>5.10.2</junit.version>
   </properties>
-
   <dependencies>
-    <!-- Servlet API (el contenedor la provee en runtime) -->
+    <!-- Servlet API  -->
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
       <version>${jakarta.servlet.version}</version>
       <scope>provided</scope>
     </dependency>
-
     <!-- MySQL -->
     <dependency>
       <groupId>com.mysql</groupId>
       <artifactId>mysql-connector-j</artifactId>
       <version>9.0.0</version>
     </dependency>
-
     <!-- Librería extra: BCrypt para hashear contraseñas -->
     <dependency>
       <groupId>org.mindrot</groupId>
       <artifactId>jbcrypt</artifactId>
       <version>0.4</version>
     </dependency>
-
-    <!-- Tests -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>5.12.0</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- (Opcional para smoke tests DAO) -->
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>2.2.224</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
-
   <build>
-    <finalName>myconstruction</finalName>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
-        <configuration>
-          <release>17</release>
-        </configuration>
-      </plugin>
+      <!-- Empaquetado WAR -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.4.0</version>
-        <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-          <warName>myconstruction</warName>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.2.5</version>
-        <configuration>
-          <useModulePath>false</useModulePath>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>3.1.1</version>
       </plugin>
     </plugins>
   </build>
-
   <!-- Publicación en Artifactory vía 'mvn deploy' -->
   <distributionManagement>
     <snapshotRepository>
-      <id>artifactory</id>
-      <url>https://trialgzc17e.jfrog.io/artifactory/libs-snapshot-local</url>
+      <id>libs-snapshot-local</id>
+      <url>http://localhost:8082/artifactory/libs-snapshot-local</url>
     </snapshotRepository>
     <repository>
-      <id>artifactory</id>
-      <url>https://trialgzc17e.jfrog.io/artifactory/libs-release-local</url>
+      <id>libs-release-local</id>
+      <url>http://localhost:8082/artifactory/libs-release-local</url>
     </repository>
   </distributionManagement>
 </project>

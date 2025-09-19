@@ -6,7 +6,7 @@ target/
 
 
 ### IntelliJ IDEA ###
-src/main/resources/webapp/css/style_explicacion.css
+src/main/webapp/css/style_explicacion.css
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
